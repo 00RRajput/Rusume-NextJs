@@ -57,7 +57,7 @@ export default function PDF() {
           "Mongoose",
           "NodeJS",
           "JQuery",
-          "API",
+          "API (custom and Third Party integration etc)",
           "Analytical Skill",
         ],
       },
