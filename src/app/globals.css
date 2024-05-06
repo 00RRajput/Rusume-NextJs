@@ -163,4 +163,8 @@ p {
   .ml-2 {
     margin-left: 8px;
   }
+  .download {
+    background-color: rgb(15, 150, 195);
+    color: white;
+  }
 }

@@ -107,6 +107,11 @@ export default function PDF() {
   // }, [skills, ecperience, education]);
 console.log('===>', skills, ecperience);
   return (
+    <>
+
+      <button type="button" className="download" onClick={() => toPDF()}>
+        Download
+      </button>
     <div ref={targetRef} className="pdf">
       <div className="main-pdf">
         <div className="n-card">
@@ -273,9 +278,7 @@ console.log('===>', skills, ecperience);
       </div>
       </div>
       </div>
-      <button type="button" onClick={() => toPDF()}>
-        Button
-      </button>
     </div>
+    </>
   );
 }
