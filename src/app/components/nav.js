@@ -21,7 +21,7 @@ export default function Home() {
         <Link href={"/register"} className="ml-3">
             Register
         </Link>
-        <Link href={"/pdf"} className="ml-3">
+        <Link href={"/resume"} className="ml-3">
             PDF
         </Link>
     </div>
