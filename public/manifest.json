@@ -1,0 +1,28 @@
+{
+    "id": "4",
+    "name": "R Rajput",
+    "short_name": "RR",
+    "icons": [
+      {
+        "src": "/ninja.jpeg",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/ninja.jpeg",
+        "sizes": "384x384",
+        "type": "image/png"
+      },
+      {
+        "src": "/ninja.jpeg",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#FFFFFF",
+    "background_color": "#FFFFFF",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+  }
