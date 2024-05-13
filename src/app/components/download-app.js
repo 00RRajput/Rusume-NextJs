@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function DownloadApp() {
-    const [deferredPrompt, setDeferredPrompt] = useState(null);
+    const [deferredPrompt, setDeferredPrompt] = useState({});
     const [downloadBtn, setDownloadBtn] = useState(false);
 
     useEffect(() => {
@@ -14,7 +14,9 @@ export default function DownloadApp() {
         window.addEventListener('beforeinstallprompt', (event) => {
             // Prevent the default behavior
             event.preventDefault();
+            console.log('set', event);
             setDeferredPrompt(event);
+            console.log('set event', deferredPrompt);
         });
     }, []);
 
@@ -44,9 +46,18 @@ export default function DownloadApp() {
             window.addEventListener('beforeinstallprompt', (event) => {
                 // Prevent the default behavior
                 event.preventDefault();
-                setDeferredPrompt(event);
-                installPWA();
+
+                event.prompt();
+        
+          // Wait for the user to respond to the prompt
+          event.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the install prompt');
+            } else {
+              console.log('User dismissed the install prompt');
+            }
             });
+        });
         }
       }
 
