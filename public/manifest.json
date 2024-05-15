@@ -10,12 +10,12 @@
         "purpose": "any maskable"
       },
       {
-        "src": "/ninja.jpeg",
+        "src": "/stat-img/logo.png",
         "sizes": "384x384",
         "type": "image/png"
       },
       {
-        "src": "/ninja.jpeg",
+        "src": "/stat-img/logo.gif",
         "sizes": "512x512",
         "type": "image/png"
       }

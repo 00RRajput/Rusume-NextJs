@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function DownloadApp() {
-    const [deferredPrompt, setDeferredPrompt] = useState({});
+    const [deferredPrompt, setDeferredPrompt] = useState(null);
     const [downloadBtn, setDownloadBtn] = useState(false);
 
     useEffect(() => {
@@ -63,7 +63,7 @@ export default function DownloadApp() {
 
     return (
         <div>
-          { downloadBtn && <button onClick={installPWA}>DownloadApp</button> }
+          { deferredPrompt && downloadBtn && <button onClick={installPWA}>DownloadApp</button> }
         </div>
       );
 }
