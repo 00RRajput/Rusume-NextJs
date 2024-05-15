@@ -63,7 +63,7 @@ export default function DownloadApp() {
 
     return (
         <div>
-          { deferredPrompt && downloadBtn && <button onClick={installPWA}>DownloadApp</button> }
+          { deferredPrompt && <button onClick={installPWA}>DownloadApp</button> }
         </div>
       );
 }
