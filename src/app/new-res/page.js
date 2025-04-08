@@ -451,7 +451,7 @@ export default function NewRes() {
                                         <span class="text-gray-500 transform -translate-y-px select-none">
                                             &rsaquo;
                                         </span>
-                                        Maintained relationships with vendors, clients, and external stakeholders, ensuring professionalism and alignment with the business's values.
+                                        Maintained relationships with vendors, clients, and external stakeholders, ensuring professionalism and alignment with the business&apos;s values.
                                     </li>
                                 </ul>
                             </section>
