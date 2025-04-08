@@ -15,7 +15,7 @@ export default function PDF() {
   const [education, setEducation] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
+  const { toPDF, targetRef } = usePDF({filename: 'resume.pdf'});
 
   // const handleViewPdf = async () => {
   //   const element = printRef.current;
@@ -191,7 +191,7 @@ console.log('===>', skills, ecperience);
           </div>
           <div>
             <p>
-            Results-driven software developer with 2+ years of practical experience creating and optimizing software solutions. Proficient in diverse
+            Results-driven software developer with 3 years of practical experience creating and optimizing software solutions. Proficient in diverse
                 programming languages and frameworks, with a keen eye for detail and a passion for crafting high-performance code. Committed to
                     continuous learning and eager to contribute to innovative projects.
             </p>
@@ -266,7 +266,7 @@ console.log('===>', skills, ecperience);
               <td>Single</td>
               <td>Interest/Hobbies</td>
               <td> {'=>'} </td>
-              <td>BGMI, Travelling & Music</td>
+              <td>BGMI, Travelling, Rinding & Music</td>
             </tr>
           </table>
         </div>

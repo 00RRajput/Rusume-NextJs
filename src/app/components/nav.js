@@ -25,8 +25,14 @@ export default function Nav() {
         <Link href={"/register"} className="ml-3">
           Register
         </Link>
+        <Link href={"/streaming"} className="ml-3">
+          Streaming
+        </Link>
         <Link href={"/resume"} className="ml-3">
           PDF
+        </Link>
+        <Link href={"/new-res"} className="ml-3">
+          N R
         </Link>
       </div>
     </div>

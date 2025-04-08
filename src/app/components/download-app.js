@@ -1,69 +1,69 @@
-"use client";
+import React, { useState, useEffect } from 'react';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+function App() {
+  const [pwaInstalled, setPWAInstalled] = useState(false);
+  const [installedApps, setInstalledApps] = useState([]);
+  const [deferredPrompt, setDeferredPrompt] = useState([]);
 
-export default function DownloadApp() {
-    const [deferredPrompt, setDeferredPrompt] = useState(null);
-    const [downloadBtn, setDownloadBtn] = useState(false);
-
-    useEffect(() => {
-        console.log("DownloadApp", window)
-
-        window.addEventListener('beforeinstallprompt', (event) => {
-            // Prevent the default behavior
-            event.preventDefault();
-            console.log('set', event);
-            setDeferredPrompt(event);
-            console.log('set event', deferredPrompt);
-        });
-    }, []);
-
-    useEffect(() => {
-        setDownloadBtn(true);
-    }, [deferredPrompt]);
-
-    function installPWA() {
-        console.log('Enter pwaInstall',deferredPrompt);
-        if (deferredPrompt) {
-          // Show the install prompt
-          console.log(deferredPrompt);
-          deferredPrompt.prompt();
-        
-          // Wait for the user to respond to the prompt
-          deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-              console.log('User accepted the install prompt');
-            } else {
-              console.log('User dismissed the install prompt');
-            }
-        
-            // Clear the deferredPrompt variable
-            // setDeferredPrompt(null);
-          });
-        } else {
-            window.addEventListener('beforeinstallprompt', (event) => {
-                // Prevent the default behavior
-                event.preventDefault();
-
-                event.prompt();
-        
-          // Wait for the user to respond to the prompt
-          event.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-              console.log('User accepted the install prompt');
-            } else {
-              console.log('User dismissed the install prompt');
-            }
-            });
-        });
+  useEffect(() => {
+    // Check if PWA is installed
+    if (navigator.getInstalledRelatedApps) {
+      navigator.getInstalledRelatedApps().then(apps => {
+        if (apps.length > 0) {
+          setPWAInstalled(true);
+          setInstalledApps(apps);
         }
-      }
+      });
+    }
+  }, []);
 
-    return (
+  useEffect(() => {
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      setDeferredPrompt(event)
+      setPWAInstalled(true);
+    });
+  }, []);
+
+  const handleInstallPWA = () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+          setPWAInstalled(true);
+        } else {
+          console.log('User dismissed the install prompt');
+          setDeferredPrompt(null);
+        }
+      });
+    }
+  };
+
+  const handleOpenApp = () => {
+    // Add logic here to open the installed PWA
+  };
+
+  return (
+    <div>
+      {!pwaInstalled && (
+        <button onClick={handleInstallPWA}>Install App</button>
+      )}
+      {pwaInstalled && (
+        <button onClick={handleOpenApp}>Open App</button>
+      )}
+      {installedApps.length > 0 && (
         <div>
-          { deferredPrompt && <button onClick={installPWA}>DownloadApp</button> }
+          <h2>Installed Apps:</h2>
+          <ul>
+            {installedApps.map(app => (
+              <li key={app.id}>{app.name}</li>
+            ))}
+          </ul>
         </div>
-      );
+      )}
+    </div>
+  );
 }
+
+export default App;
