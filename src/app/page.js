@@ -1,14 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import DownloadApp from "./components/download-app";
-import { GoChevronDown } from "react-icons/go";
-import { IoLogoWhatsapp } from "react-icons/io";
-import { FaFacebookF } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
-import { FaLinkedinIn } from "react-icons/fa6";
-import { FaYoutube } from "react-icons/fa";
 
 
 import "./../../public/assets/css/main.css";
@@ -31,7 +23,7 @@ export default function Main() {
                 <p className="lead">Transforming ideas into elegant solutions through creative design and innovative development</p>
                 <div className="cta-buttons" data-aos="fade-up" data-aos-delay="300">
                   <a href="#portfolio" className="btn btn-primary">View My Work</a>
-                  <a href="#contact" className="btn btn-outline">Let's Connect</a>
+                  <a href="#contact" className="btn btn-outline">Let&apos;s Connect</a>
                 </div>
                 <div className="hero-stats" data-aos="fade-up" data-aos-delay="400">
                   <div className="stat-item">
