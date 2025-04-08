@@ -14,8 +14,8 @@ export default function MainNav() {
         <div className="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
           <Link href="index.html" className="logo d-flex align-items-center me-auto me-xl-0">
-            {/* <!-- <img src="/assets/img/logo.webp" alt=""> --> */}
-            <h1 className="sitename">EasyFolio</h1>
+            <Image src="/stat-img/transprint-logo-crop.png" width={150} height={100} className="img-fluid ml-3" alt="" />
+            {/* <h1 className="sitename">EasyFolio</h1> */}
           </Link>
 
           <nav id="navmenu" className="navmenu">

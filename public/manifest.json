@@ -1,5 +1,5 @@
 {
-    "id": "6",
+    "id": "7",
     "name": "R Rajput",
     "short_name": "RR",
     "icons": [
@@ -10,7 +10,7 @@
         "purpose": "any maskable"
       },
       {
-        "src": "/stat-img/logo.png",
+        "src": "/stat-img/app-ic.png",
         "sizes": "384x384",
         "type": "image/png"
       },
