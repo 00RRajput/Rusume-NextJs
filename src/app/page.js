@@ -5,9 +5,13 @@ import Image from "next/image";
 
 import "./../../public/assets/css/main.css";
 import MainNav from "./components/main/nav";
+import skills from '@/data/skills'
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Main() {
-
+  const [activeIndex, setActiveIndex] = useState(0);
+  // console.log('data', data);
   return (
     <>
       <MainNav/>
@@ -88,7 +92,8 @@ export default function Main() {
                 <div className="about-content">
                   <span className="subtitle">About Me</span>
 
-                  <h2>UI/UX Designer &amp; Web Developer</h2>
+                  {/* <h2>UI/UX Designer &amp; Web Developer</h2> */}
+                  <h2>Full Stack Developer</h2>
 
                   <p className="lead mb-4">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
 
@@ -99,42 +104,42 @@ export default function Main() {
                       <div className="col-6">
                         <div className="info-item">
                           <span className="label">Name</span>
-                          <span className="value">Eliot Johnson</span>
+                          <span className="value">Sanjay Kuamr</span>
                         </div>
                       </div>
 
                       <div className="col-6">
                         <div className="info-item">
                           <span className="label">Phone</span>
-                          <span className="value">+123 456 7890</span>
+                          <span className="value">+91 8219393501</span>
                         </div>
                       </div>
 
                       <div className="col-6">
                         <div className="info-item">
                           <span className="label">Age</span>
-                          <span className="value">26 Years</span>
+                          <span className="value">27 Years</span>
                         </div>
                       </div>
 
                       <div className="col-6">
                         <div className="info-item">
                           <span className="label">Email</span>
-                          <span className="value">email@example.com</span>
+                          <span className="value">r.rajput.dev.01@gmail.com</span>
                         </div>
                       </div>
 
-                      <div className="col-6">
+                      {/* <div className="col-6">
                         <div className="info-item">
                           <span className="label">Occupation</span>
                           <span className="value">Lorem Engineer</span>
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="col-6">
                         <div className="info-item">
                           <span className="label">Nationality</span>
-                          <span className="value">Ipsum</span>
+                          <span className="value">Indian</span>
                         </div>
                       </div>
                     </div>
@@ -146,8 +151,8 @@ export default function Main() {
                         height={100} src="/assets/img/misc/signature-1.webp" alt="" className="img-fluid" />
                     </div>
                     <div className="signature-info">
-                      <h4>Eliot Johnson</h4>
-                      <p>Adipiscing Elit, Lorem Ipsum</p>
+                      <h4>Sanjay</h4>
+                      <p>Software Engineer</p>
                     </div>
                   </div>
                 </div>
@@ -159,59 +164,108 @@ export default function Main() {
         </section>
 
         <section id="skills" className="skills section">
-
-          <div className="container" data-aos="fade-up" data-aos-delay="100">
-
-            <div className="row g-4 skills-animation">
-
-              <div className="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                <div className="skill-box">
-                  <h3>HTML</h3>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
-                  <span className="text-end d-block">90%</span>
-                  <div className="progress">
-                    <div className="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                <div className="skill-box">
-                  <h3>CSS</h3>
-                  <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</p>
-                  <span className="text-end d-block">90%</span>
-                  <div className="progress">
-                    <div className="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                <div className="skill-box">
-                  <h3>JavaScript</h3>
-                  <p>Neque porro quisquam est qui dolorem ipsum quia dolor.</p>
-                  <span className="text-end d-block">80%</span>
-                  <div className="progress">
-                    <div className="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-                <div className="skill-box">
-                  <h3>Photoshop</h3>
-                  <p>Quis autem vel eum iure reprehenderit qui in ea voluptate.</p>
-                  <span className="text-end d-block">55%</span>
-                  <div className="progress">
-                    <div className="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+        <div className="container section-title" data-aos="fade-up">
+            <h2>Skills</h2>
+            <div className="title-shape">
+              <svg viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" strokeWidth="2"></path>
+              </svg>
             </div>
-
+            <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem</p>
           </div>
+
+        {/* <div className="container mx-auto px-4" data-aos="fade-up" data-aos-delay="100">
+          {skills.map((category, i) => {
+            const [title, items] = Object.entries(category)[0];
+            return (
+              <div className="mt-6" key={i}>
+                <h2 className="text-xl font-semibold mb-3">{title}</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 skills-animation">
+                  {items.map((item, j) => (
+                    <div
+                      key={j}
+                      className="p-3 bg-white border rounded-xl shadow-sm text-sm"
+                      data-aos="fade-up"
+                      data-aos-delay="100"
+                    >
+                      <h5 className="font-medium text-base mb-1">{item.Skill}</h5>
+                      <p className="text-gray-500 text-xs mb-2">{item.des}</p>
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-gray-400 text-xs">Proficiency</span>
+                        <strong className="text-gray-800 text-sm">{item.prsentage}</strong>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded h-1.5">
+                        <div
+                          className="bg-green-500 h-1.5 rounded"
+                          style={{ width: item.prsentage }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div> */}
+
+        <div className="container mx-auto px-4 py-6">
+          {/* Tabs */}
+          <div className="flex space-x-4 overflow-x-auto border-b mb-6">
+            {skills.map((category, i) => {
+              const [title] = Object.entries(category)[0];
+              return (
+                <button
+                  key={i}
+                  onClick={() => setActiveIndex(i)}
+                  className={`pb-2 font-mdium whitespace-nowrap ${
+                    activeIndex === i
+                      ? 'border-b-2 border-blue-600 text-blue-600'
+                      : 'text-gray-500 hover:text-blue-500'
+                  }`}
+                >
+                  {title}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Animated Content */}
+          <div className="relative min-h-[200px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ duration: 0.4 }}
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+              >
+                {Object.entries(skills[activeIndex])[0][1].map((item, i) => (
+                  <div
+                  key={i}
+                  className="p-3 bg-white border rounded-xl shadow-sm text-sm"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  <h5 className="font-medium text-base mb-1">{item.Skill}</h5>
+                  <p className="text-gray-500 text-xs mb-2">{item.des}</p>
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-gray-400 text-xs">Proficiency</span>
+                    <strong className="text-gray-800 text-sm">{item.prsentage}</strong>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded h-1.5">
+                    <div
+                      className="bg-green-500 h-1.5 rounded"
+                      style={{ width: item.prsentage }}
+                    ></div>
+                  </div>
+                </div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
 
         </section>
 
@@ -224,7 +278,7 @@ export default function Main() {
                 <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" strokeWidth="2"></path>
               </svg>
             </div>
-            <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem</p>
+            <p>Highlights of my professional path and technical growth.</p>
           </div>
 
           <div className="container" data-aos="fade-up" data-aos-delay="100">
@@ -234,51 +288,89 @@ export default function Main() {
                 <div className="resume-wrapper">
                   <div className="resume-block" data-aos="fade-up">
                     <h2>Work Experience</h2>
-                    <p className="lead">Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing sem neque sed ipsum.</p>
+                    <p className="lead">Skilled in full-stack development, agile collaboration, and delivering scalable, high-quality software with a focus on performance and user experience.</p>
 
                     <div className="timeline">
                       <div className="timeline-item" data-aos="fade-up" data-aos-delay="200">
                         <div className="timeline-left">
-                          <h4 className="company">Etiam Industries</h4>
-                          <span className="period">Jun, 2023 - Current</span>
+                          <h4 className="company">Summerhill Technologies Pvt Ltd. (Shimla)</h4>
+                          <span className="period">Oct,2021 - Present</span>
                         </div>
                         <div className="timeline-dot"></div>
                         <div className="timeline-right">
-                          <h3 className="position">Project Lead</h3>
-                          <p className="description">Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p>
-                        </div>
-                      </div>
-
-                      <div className="timeline-item" data-aos="fade-up" data-aos-delay="300">
-                        <div className="timeline-left">
-                          <h4 className="company">Nullam Corp</h4>
-                          <span className="period">2019 - 2023</span>
-                        </div>
-                        <div className="timeline-dot"></div>
-                        <div className="timeline-right">
-                          <h3 className="position">Senior graphic design specialist</h3>
-                          <p className="description">
-                            Curabitur ullamcorper ultricies nisi nam eget dui etiam rhoncus maecenas tempus.
-                          </p>
-                          <ul>
-                            <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
-                            <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
-                            <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
-                            <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
+                          <h3 className="position">Software Developer</h3>
+                          <p className="description">Successfully led end-to-end development of scalable web applications, managing both team collaboration and client communication. Oversaw feature delivery, performance optimization, and third-party integrations within agile sprints.</p>
+                          <ul className="mt-2">
+                            <li>
+                              <strong>Project:</strong> ULMS (Unit Load Management System) – A system to manage and track reusable unit load boxes through cycle-wise dispatch.
+                            </li>
+                            <li>
+                              <ul className="list-disc ps-4 mt-2">
+                                <li>Built real-time operations and socket-based live tracking & notifications.</li>
+                                <li>Optimized SQL queries for performance and operational accuracy.</li>
+                                <li>Managed complete dispatch workflow including supplier and OEM integration.</li>
+                                <li>Integrated email and e-way billing services for automated communication.</li>
+                                <li><strong>Tech Stack:</strong> Laravel, PHP, SQL, phpMyAdmin, jQuery.</li>
+                              </ul>
+                            </li>
+                            <li>
+                              <strong>Project:</strong> Dtalk – An internal task management and appraisal system for a logistics company.
+                            </li>
+                            <li>
+                              <ul className="list-disc ps-4 mt-2">
+                                <li>Managed employee daily tasks with manager-mapped evaluation.</li>
+                                <li>Built quarterly performance tracking and scoring workflows.</li>
+                                <li>Calculated annual scores to support structured employee appraisals.</li>
+                                <li>Streamlined performance review cycles across departments.</li>
+                                <li><strong>Tech Stack:</strong> Laravel, PHP, SQL, phpMyAdmin, JavaScript</li>
+                              </ul>
+                            </li>
+                            <li>
+                              <strong>Project:</strong> YMS – Yard Management System for handling vehicle placement, service scheduling, and real-time yard operations.
+                            </li>
+                            <li>
+                              <ul className="list-disc ps-4 mt-2">
+                                <li>Managed vehicle entry, placement, and service mapping within the yard.</li>
+                                <li>Utilized Google Maps API for precise yard location tracking and service zones.</li>
+                                <li>Implemented real-time notifications and system updates using WebSockets.</li>
+                                <li>Covered various yard operations from check-in to service dispatch.</li>
+                                <li><strong>Tech Stack:</strong> React (Frontend), Node.js (Backend), MongoDB (Database).</li>
+                              </ul>
+                            </li>
+                            <li>
+                              <strong>Project:</strong> AMT – Asset Management Tool for logistics company to streamline asset assignment and inventory tracking.
+                            </li>
+                            <li>
+                              <ul className="list-disc ps-4 mt-2">
+                                <li>Mapped company assets (hardware/software) to individual employees.</li>
+                                <li>Handled asset requests, approvals, and assignment workflows efficiently.</li>
+                                <li>Built real-time inventory tracking and status updates.</li>
+                                <li>Improved asset lifecycle visibility from request to retirement.</li>
+                                <li><strong>Tech Stack:</strong> Next.js (Frontend & Backend), MongoDB (Database).</li>
+                              </ul>
+                            </li>
                           </ul>
                           <p></p>
                         </div>
                       </div>
 
-                      <div className="timeline-item" data-aos="fade-up" data-aos-delay="400">
+                      <div className="timeline-item" data-aos="fade-up" data-aos-delay="300">
                         <div className="timeline-left">
-                          <h4 className="company">Stepping Stone Ltd.</h4>
-                          <span className="period">2015-2019</span>
+                          <h4 className="company">Eduuis Techo Solution Pvt. Ltd</h4>
+                          <span className="period">July 2021 - Oct 2021</span>
                         </div>
                         <div className="timeline-dot"></div>
                         <div className="timeline-right">
-                          <h3 className="position">Graphic design specialist</h3>
-                          <p className="description">Curabitur ullamcorper ultricies nisi nam eget dui etiam rhoncus maecenas tempus.</p>
+                          <h3 className="position">PHP Developer Executive (Internship)</h3>
+                          <p className="description">
+                          Completed internship focused on building foundational skills in PHP, JavaScript, and Laravel while developing simple web-based applications and learning industry standards.
+                          </p>
+                          <ul>
+                            <li>Learned core PHP and JavaScript for basic web functionality.</li>
+                            <li>Started working with Laravel framework for structured application development.</li>
+                            <li>Collaborated with senior developers to understand real-world development practices.</li>
+                          </ul>
+                          <p></p>
                         </div>
                       </div>
                     </div>

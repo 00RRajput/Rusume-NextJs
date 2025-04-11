@@ -1,0 +1,178 @@
+[
+    {
+      "⚙️ Backend Development": [
+        {
+          "Skill": "PHP",
+          "des": "Server-side scripting language for web development.",
+          "prsentage": "85%"
+        },
+        {
+          "Skill": "Node.js",
+          "des": "JavaScript runtime for server-side development.",
+          "prsentage": "70%"
+        },
+        {
+          "Skill": "AdonisJS",
+          "des": "Node.js MVC framework inspired by Laravel.",
+          "prsentage": "65%"
+        },
+        {
+          "Skill": "Laravel",
+          "des": "PHP web application framework with expressive syntax.",
+          "prsentage": "80%"
+        },
+        {
+          "Skill": "ExpressJS",
+          "des": "Minimal Node.js framework for backend services.",
+          "prsentage": "75%"
+        },
+        {
+          "Skill": "NestJS",
+          "des": "Progressive Node.js framework for scalable applications.",
+          "prsentage": "60%"
+        }
+      ]
+    },
+    {
+      "🧱 Frontend Development": [
+        {
+          "Skill": "HTML",
+          "des": "Markup language for structuring web content.",
+          "prsentage": "80%"
+        },
+        {
+          "Skill": "CSS",
+          "des": "Styling language to design visually appealing web pages.",
+          "prsentage": "75%"
+        },
+        {
+          "Skill": "JavaScript",
+          "des": "Programming language to add interactivity to web pages.",
+          "prsentage": "80%"
+        },
+        {
+          "Skill": "VueJS",
+          "des": "Progressive framework for building user interfaces.",
+          "prsentage": "70%"
+        },
+        {
+          "Skill": "ReactJS",
+          "des": "JavaScript library for building reusable UI components.",
+          "prsentage": "70%"
+        },
+        {
+          "Skill": "NextJS",
+          "des": "React framework for server-side rendering and routing.",
+          "prsentage": "60%"
+        },
+        {
+          "Skill": "Tailwind CSS",
+          "des": "Utility-first CSS framework for rapid UI development.",
+          "prsentage": "85%"
+        },
+        {
+          "Skill": "Bootstrap",
+          "des": "Popular CSS framework for responsive design.",
+          "prsentage": "80%"
+        }
+      ]
+    },
+    {
+      "🗃️ Database & Storage": [
+        {
+          "Skill": "SQL",
+          "des": "Language for querying and managing relational databases.",
+          "prsentage": "80%"
+        },
+        {
+          "Skill": "MongoDB",
+          "des": "NoSQL database for scalable, document-based data storage.",
+          "prsentage": "75%"
+        },
+        {
+          "Skill": "Firebase",
+          "des": "Backend-as-a-Service with realtime database and auth.",
+          "prsentage": "70%"
+        },
+        {
+          "Skill": "PostgreSQL",
+          "des": "Advanced open-source relational database.",
+          "prsentage": "65%"
+        }
+      ]
+    },
+    {
+      "📡 APIs & Integration": [
+        {
+          "Skill": "API",
+          "des": "Building and consuming RESTful APIs.",
+          "prsentage": "80%"
+        },
+        {
+          "Skill": "Socket.io",
+          "des": "Real-time bidirectional communication over WebSockets.",
+          "prsentage": "70%"
+        },
+        {
+          "Skill": "WhatsApp Integration",
+          "des": "Connecting systems with WhatsApp Business API.",
+          "prsentage": "65%"
+        },
+        {
+          "Skill": "Email Services",
+          "des": "Automating and sending transactional emails (SMTP, Mailgun, etc).",
+          "prsentage": "75%"
+        },
+        {
+          "Skill": "Payment Gateway",
+          "des": "Integrating payment systems like Stripe/PayPal.",
+          "prsentage": "70%"
+        },
+          {
+            "Skill": "Google Maps API",
+            "des": "Integrated for yard and location-based tracking systems.",
+            "prsentage": "75%"
+          },
+          {
+            "Skill": "E-Way Bill Integration",
+            "des": "Automated transport documentation in dispatch processes.",
+            "prsentage": "70%"
+          },
+          {
+            "Skill": "Authentication APIs",
+            "des": "Implemented secure login systems and session handling.",
+            "prsentage": "80%"
+          }
+      ]
+    },
+    {
+      "🧰 Tools & Utilities": [
+        {
+          "Skill": "Git",
+          "des": "Version control system for tracking code changes.",
+          "prsentage": "85%"
+        },
+        {
+          "Skill": "GitHub",
+          "des": "Hosting platform for version-controlled projects.",
+          "prsentage": "85%"
+        },
+        {
+          "Skill": "VS Code",
+          "des": "Popular code editor for web development.",
+          "prsentage": "90%"
+        },
+        {
+          "Skill": "Postman",
+          "des": "API testing and collaboration tool.",
+          "prsentage": "80%"
+        },
+        {
+          "Skill": "Docker",
+          "des": "Containerization platform for app deployment.",
+          "prsentage": "60%"
+        }
+      ]
+    }
+  ]
+  
