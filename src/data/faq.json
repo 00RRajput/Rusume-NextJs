@@ -1,0 +1,32 @@
+ [
+    {
+      "question": "What kind of services do you offer?",
+      "answer":
+        "I offer a wide range of services including web development, API integrations, cloud-based solutions, and custom web design. I specialize in using frameworks like Laravel, PHP, and jQuery to build optimized and user-friendly applications."
+    },
+    {
+      "question": "How do you approach web development projects?",
+      "answer":
+        "My approach involves understanding your business needs, followed by creating a tailored plan. I use modern tools and technologies to build scalable and secure solutions. I focus on delivering responsive, well-optimized websites and applications that provide the best user experience."
+    },
+    {
+      "question": "Do you offer ongoing support after project completion?",
+      "answer":
+        "Yes! I provide post-launch support to ensure that your system runs smoothly and is up-to-date. Whether it’s maintenance, bug fixes, or additional features, I am available to assist you with ongoing support."
+    },
+    {
+      "question": "What is your experience with Laravel and PHP?",
+      "answer":
+        "I have extensive experience working with Laravel and PHP, especially in building complex systems like the Unit Load Management System (ULMS). My expertise includes integrating APIs, setting up real-time operations, and creating user-friendly dashboards for easy management."
+    },
+    {
+      "question": "Can you help with e-commerce websites?",
+      "answer":
+        "Absolutely! I can help you build robust e-commerce platforms, integrate payment systems, optimize product displays, and ensure that your website runs smoothly to maximize user engagement and sales."
+    },
+    {
+      "question": "How do I get started with a project?",
+      "answer":
+        "Getting started is easy! Just reach out through the contact form on my website or email me directly. We’ll discuss your project needs, and I will create a tailored plan with a timeline and cost estimate. From there, we can begin the development process!"
+    }
+  ]

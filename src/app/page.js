@@ -6,15 +6,60 @@ import Image from "next/image";
 import "./../../public/assets/css/main.css";
 import MainNav from "./components/main/nav";
 import skills from '@/data/skills'
+import faqData from '@/data/faq'
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 export default function Main() {
   const [activeIndex, setActiveIndex] = useState(0);
-  // console.log('data', data);
+  const [activeFAQIndex, setActiveFAQIndex] = useState(null);
+  const [status, setStatus] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    const formData = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      subject: e.target.subject.value,
+      message: e.target.message.value,
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+    console.log(res);
+    return;
+      if (res.ok) {
+        setStatus('success');
+        e.target.reset();
+      } else {
+        setStatus('error');
+      }
+    } catch (err) {
+      setStatus('error');
+    }
+  };
+ 
+  const toggleFAQ = (index) => {
+
+    if (activeFAQIndex === index) {
+      setActiveFAQIndex(null);
+    } else {
+      setActiveFAQIndex(index);
+    }
+  };
   return (
     <>
-      <MainNav/>
+      <MainNav />
       <main className="main">
 
         <section id="hero" className="hero section">
@@ -31,15 +76,15 @@ export default function Main() {
                 </div>
                 <div className="hero-stats" data-aos="fade-up" data-aos-delay="400">
                   <div className="stat-item">
-                    <span className="stat-number">5+</span>
+                    <span className="stat-number">4+</span>
                     <span className="stat-label">Years Experience</span>
                   </div>
                   <div className="stat-item">
-                    <span className="stat-number">100+</span>
+                    <span className="stat-number">13+</span>
                     <span className="stat-label">Projects Completed</span>
                   </div>
                   <div className="stat-item">
-                    <span className="stat-number">50+</span>
+                    <span className="stat-number">10+</span>
                     <span className="stat-label">Happy Clients</span>
                   </div>
                 </div>
@@ -49,7 +94,8 @@ export default function Main() {
                   <Image
                     width={500}
                     height={500}
-                    src="/assets/img/profile/profile-1.webp"
+                    // src="/assets/img/profile/profile-1.webp"
+                    src="/stat-img/main.png"
                     alt="Portfolio Hero Image"
                     className="img-fluid"
                     data-aos="zoom-out"
@@ -74,7 +120,9 @@ export default function Main() {
                 <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" strokeWidth="2"></path>
               </svg>
             </div>
-            <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem</p>
+            <p>
+              I'm a passionate Software Engineer skilled in building scalable web apps and seamless user experiences. I work with Laravel, Next.js, and React to craft clean, functional, and high-performance solutions.
+            </p>
           </div>
 
           <div className="container" data-aos="fade-up" data-aos-delay="100">
@@ -84,7 +132,9 @@ export default function Main() {
                 <div className="about-image">
                   <Image width={600}
                     height={600}
-                    src="/assets/img/profile/profile-square-2.webp" alt="Profile Image" className="img-fluid rounded-4" />
+                    // src="/assets/img/profile/profile-square-2.webp"
+                    src="/stat-img/about.jpg"
+                    alt="Profile Image" className="img-fluid rounded-4" />
                 </div>
               </div>
 
@@ -95,16 +145,20 @@ export default function Main() {
                   {/* <h2>UI/UX Designer &amp; Web Developer</h2> */}
                   <h2>Full Stack Developer</h2>
 
-                  <p className="lead mb-4">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                  <p className="lead mb-4">
+                    I’m a Full Stack Developer with a focus on building robust, scalable web applications and delivering smooth, intuitive user experiences.
+                  </p>
 
-                  <p className="mb-4">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet</p>
+                  <p className="mb-4">
+                    From frontend interfaces to backend systems, I enjoy turning ideas into reliable, efficient, and elegant digital products.
+                  </p>
 
                   <div className="personal-info">
                     <div className="row g-4">
                       <div className="col-6">
                         <div className="info-item">
                           <span className="label">Name</span>
-                          <span className="value">Sanjay Kuamr</span>
+                          <span className="value">Sanjay Kumar</span>
                         </div>
                       </div>
 
@@ -148,7 +202,10 @@ export default function Main() {
                   <div className="signature mt-4">
                     <div className="signature-image">
                       <Image width={100}
-                        height={100} src="/assets/img/misc/signature-1.webp" alt="" className="img-fluid" />
+                        height={100}
+                        // src="/assets/img/misc/signature-1.webp"
+                        src="/stat-img/signature.png"
+                        alt="" className="img-fluid" />
                     </div>
                     <div className="signature-info">
                       <h4>Sanjay</h4>
@@ -163,18 +220,20 @@ export default function Main() {
 
         </section>
 
-        <section id="skills" className="skills section">
-        <div className="container section-title" data-aos="fade-up">
+        <section id="skills" className="skills section portfolio">
+          <div className="container section-title" data-aos="fade-up">
             <h2>Skills</h2>
             <div className="title-shape">
               <svg viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" strokeWidth="2"></path>
               </svg>
             </div>
-            <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem</p>
+            <p>
+              I specialize in both frontend and backend development, with hands-on experience in modern frameworks, databases, and tools that bring powerful digital solutions to life.
+            </p>
           </div>
 
-        {/* <div className="container mx-auto px-4" data-aos="fade-up" data-aos-delay="100">
+          {/* <div className="container mx-auto px-4" data-aos="fade-up" data-aos-delay="100">
           {skills.map((category, i) => {
             const [title, items] = Object.entries(category)[0];
             return (
@@ -208,9 +267,29 @@ export default function Main() {
           })}
         </div> */}
 
-        <div className="container mx-auto px-4 py-6">
-          {/* Tabs */}
-          <div className="flex space-x-4 overflow-x-auto border-b mb-6">
+          <div className="container mx-auto px-4 py-6">
+            {/* Tabs */}
+            <div className="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+              <div className="portfolio-filters-container" data-aos="fade-up" data-aos-delay="200">
+                <div className="section light-background p-2">
+                  <ul className="portfolio-filters isotope-filters overflow-x-auto">
+
+                    {skills.map((category, i) => {
+                      const [title] = Object.entries(category)[0];
+                      return (
+                        <li
+                          key={i}
+                          onClick={() => setActiveIndex(i)}
+                          className={activeIndex == i ? 'filter-active' : ''}
+                        >{title}</li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            {/* <div className="flex space-x-4 overflow-x-auto border-b mb-6">
             {skills.map((category, i) => {
               const [title] = Object.entries(category)[0];
               return (
@@ -227,44 +306,48 @@ export default function Main() {
                 </button>
               );
             })}
-          </div>
+          </div> */}
 
-          {/* Animated Content */}
-          <div className="relative min-h-[200px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -30 }}
-                transition={{ duration: 0.4 }}
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-              >
-                {Object.entries(skills[activeIndex])[0][1].map((item, i) => (
-                  <div
-                  key={i}
-                  className="p-3 bg-white border rounded-xl shadow-sm text-sm"
-                  data-aos="fade-up"
-                  data-aos-delay="100"
+            {/* Animated Content */}
+            <div className="relative min-h-[200px]">
+              <AnimatePresence mode="wait">
+                <div
+                  key={activeIndex}
+                  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
                 >
-                  <h5 className="font-medium text-base mb-1">{item.Skill}</h5>
-                  <p className="text-gray-500 text-xs mb-2">{item.des}</p>
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-gray-400 text-xs">Proficiency</span>
-                    <strong className="text-gray-800 text-sm">{item.prsentage}</strong>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded h-1.5">
-                    <div
-                      className="bg-green-500 h-1.5 rounded"
-                      style={{ width: item.prsentage }}
-                    ></div>
-                  </div>
+                  {Object.entries(skills[activeIndex])[0][1].map((item, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.5, rotateY: 90 }}
+                      animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                      exit={{ opacity: 0, scale: 0.5, rotateY: -90 }}
+                      transition={{ duration: 0.6, ease: 'easeOut' }}
+                      style={{ transformStyle: 'preserve-3d' }}
+                    >
+                      <div
+                        className="p-3 bg-white border rounded-xl shadow-sm text-sm"
+                        data-aos="fade-up"
+                        data-aos-delay="100"
+                      >
+                        <h5 className="font-medium text-base mb-1">{item.Skill}</h5>
+                        <p className="text-gray-500 text-xs mb-2">{item.des}</p>
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-gray-400 text-xs">Proficiency</span>
+                          <strong className="text-gray-800 text-sm">{item.prsentage}</strong>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded h-1.5">
+                          <div
+                            className="bg-green-500 h-1.5 rounded"
+                            style={{ width: item.prsentage }}
+                          ></div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
-                ))}
-              </motion.div>
-            </AnimatePresence>
+              </AnimatePresence>
+            </div>
           </div>
-        </div>
 
 
         </section>
@@ -278,7 +361,9 @@ export default function Main() {
                 <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" strokeWidth="2"></path>
               </svg>
             </div>
-            <p>Highlights of my professional path and technical growth.</p>
+            <p>
+              A snapshot of my journey as a developer — showcasing my technical skills, key projects, and professional experience.
+            </p>
           </div>
 
           <div className="container" data-aos="fade-up" data-aos-delay="100">
@@ -302,7 +387,7 @@ export default function Main() {
                           <p className="description">Successfully led end-to-end development of scalable web applications, managing both team collaboration and client communication. Oversaw feature delivery, performance optimization, and third-party integrations within agile sprints.</p>
                           <ul className="mt-2">
                             <li>
-                              <strong>Project:</strong> ULMS (Unit Load Management System) – A system to manage and track reusable unit load boxes through cycle-wise dispatch.
+                              <h3 className="position">Project: ULMS (Unit Load Management System) –</h3> A system to manage and track reusable unit load boxes through cycle-wise dispatch.
                             </li>
                             <li>
                               <ul className="list-disc ps-4 mt-2">
@@ -310,11 +395,11 @@ export default function Main() {
                                 <li>Optimized SQL queries for performance and operational accuracy.</li>
                                 <li>Managed complete dispatch workflow including supplier and OEM integration.</li>
                                 <li>Integrated email and e-way billing services for automated communication.</li>
-                                <li><strong>Tech Stack:</strong> Laravel, PHP, SQL, phpMyAdmin, jQuery.</li>
+                                <li><strong style={{ color: '#e87532' }}>Tech Stack:</strong> Laravel, PHP, SQL, phpMyAdmin, jQuery.</li>
                               </ul>
                             </li>
                             <li>
-                              <strong>Project:</strong> Dtalk – An internal task management and appraisal system for a logistics company.
+                              <h3 className="position">Project: Dtalk –</h3> An internal task management and appraisal system for a logistics company.
                             </li>
                             <li>
                               <ul className="list-disc ps-4 mt-2">
@@ -322,11 +407,11 @@ export default function Main() {
                                 <li>Built quarterly performance tracking and scoring workflows.</li>
                                 <li>Calculated annual scores to support structured employee appraisals.</li>
                                 <li>Streamlined performance review cycles across departments.</li>
-                                <li><strong>Tech Stack:</strong> Laravel, PHP, SQL, phpMyAdmin, JavaScript</li>
+                                <li><strong style={{ color: '#e87532' }}>Tech Stack:</strong> Laravel, PHP, SQL, phpMyAdmin, JavaScript</li>
                               </ul>
                             </li>
                             <li>
-                              <strong>Project:</strong> YMS – Yard Management System for handling vehicle placement, service scheduling, and real-time yard operations.
+                              <h3 className="position">Project: YMS - </h3> Yard Management System for handling vehicle placement, service scheduling, and real-time yard operations.
                             </li>
                             <li>
                               <ul className="list-disc ps-4 mt-2">
@@ -334,11 +419,11 @@ export default function Main() {
                                 <li>Utilized Google Maps API for precise yard location tracking and service zones.</li>
                                 <li>Implemented real-time notifications and system updates using WebSockets.</li>
                                 <li>Covered various yard operations from check-in to service dispatch.</li>
-                                <li><strong>Tech Stack:</strong> React (Frontend), Node.js (Backend), MongoDB (Database).</li>
+                                <li><strong style={{ color: '#e87532' }}>Tech Stack:</strong> React (Frontend), Node.js (Backend), MongoDB (Database).</li>
                               </ul>
                             </li>
                             <li>
-                              <strong>Project:</strong> AMT – Asset Management Tool for logistics company to streamline asset assignment and inventory tracking.
+                              <h3 className="position">Project: AMT – </h3> Asset Management Tool for logistics company to streamline asset assignment and inventory tracking.
                             </li>
                             <li>
                               <ul className="list-disc ps-4 mt-2">
@@ -346,7 +431,22 @@ export default function Main() {
                                 <li>Handled asset requests, approvals, and assignment workflows efficiently.</li>
                                 <li>Built real-time inventory tracking and status updates.</li>
                                 <li>Improved asset lifecycle visibility from request to retirement.</li>
-                                <li><strong>Tech Stack:</strong> Next.js (Frontend & Backend), MongoDB (Database).</li>
+                                <li><strong style={{ color: '#e87532' }}>Tech Stack:</strong> Next.js (Frontend & Backend), MongoDB (Database).</li>
+                              </ul>
+                            </li>
+                            <li>
+                              <h3 className="position">Project: BAton Tea – </h3>
+                              This is an e-commerce website where we implemented product purchase and checkout features, payment integration, messaging, and inventory management. It was built with a custom UI design.
+                            </li>
+                            <li>
+                              <ul className="list-disc ps-4 mt-2">
+                                <li>Implemented product browsing, add-to-cart, and secure checkout functionality.</li>
+                                <li>Integrated an online payment gateway for seamless transactions.</li>
+                                <li>Managed real-time stock and inventory tracking.</li>
+                                <li>Designed and developed a responsive custom UI using Laravel Blade templates and Bootstrap.</li>
+                                <li>
+                                  <strong style={{ color: '#e87532' }}>Tech Stack:</strong> Laravel (Backend), Bootstrap (UI), SQL (Database).
+                                </li>
                               </ul>
                             </li>
                           </ul>
@@ -363,7 +463,7 @@ export default function Main() {
                         <div className="timeline-right">
                           <h3 className="position">PHP Developer Executive (Internship)</h3>
                           <p className="description">
-                          Completed internship focused on building foundational skills in PHP, JavaScript, and Laravel while developing simple web-based applications and learning industry standards.
+                            Completed internship focused on building foundational skills in PHP, JavaScript, and Laravel while developing simple web-based applications and learning industry standards.
                           </p>
                           <ul>
                             <li>Learned core PHP and JavaScript for basic web functionality.</li>
@@ -378,42 +478,30 @@ export default function Main() {
 
                   <div className="resume-block" data-aos="fade-up" data-aos-delay="100">
                     <h2>My Education</h2>
-                    <p className="lead">Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing.</p>
+                    <p className="lead">I have an education in commerce and computer applications, with skills in business and IT..</p>
 
                     <div className="timeline">
                       <div className="timeline-item" data-aos="fade-up" data-aos-delay="200">
                         <div className="timeline-left">
-                          <h4 className="company">Vestibulum University</h4>
-                          <span className="period">2017-2019</span>
+                          <h4 className="company">Senior Secondary (+2) in Commerce</h4>
+                          <span className="period">Govt. Senior Secondary School » 2014-2015</span>
                         </div>
                         <div className="timeline-dot"></div>
                         <div className="timeline-right">
-                          <h3 className="position">Diploma in Consequat</h3>
-                          <p className="description">Curabitur ullamcorper ultricies nisi nam eget dui etiam rhoncus maecenas tempus.</p>
+                          <h3 className="position">Commerce Stream (Accountancy, Business Studies, Economics)</h3>
+                          <p className="description">Completed studies in the commerce stream with a focus on accountancy, business studies, and economics. Gained practical knowledge in financial management, business concepts.</p>
                         </div>
                       </div>
 
                       <div className="timeline-item" data-aos="fade-up" data-aos-delay="300">
                         <div className="timeline-left">
-                          <h4 className="company">Nullam Corp</h4>
-                          <span className="period">2019 - 2023</span>
+                          <h4 className="company">Advanced Diploma in Computer Applications</h4>
+                          <span className="period">Vedanta Foundation » Dec 2015</span>
                         </div>
                         <div className="timeline-dot"></div>
                         <div className="timeline-right">
-                          <h3 className="position">Master of Fine Arts &amp; Graphic Design</h3>
-                          <p className="description">Curabitur ullamcorper ultricies nisi nam eget dui etiam rhoncus maecenas tempus.</p>
-                        </div>
-                      </div>
-
-                      <div className="timeline-item" data-aos="fade-up" data-aos-delay="400">
-                        <div className="timeline-left">
-                          <h4 className="company">Vestibulum University</h4>
-                          <span className="period">2015-2019</span>
-                        </div>
-                        <div className="timeline-dot"></div>
-                        <div className="timeline-right">
-                          <h3 className="position">Bachelor of Fine Arts &amp; Graphic Design</h3>
-                          <p className="description">Curabitur ullamcorper ultricies nisi nam eget dui etiam rhoncus maecenas tempus.</p>
+                          <h3 className="position">Computer Applications & IT Skills</h3>
+                          <p className="description">Acquired essential skills in computer applications, including proficiency in MS Office, web development basics, and IT management. Developed a strong foundation in computer programming and data handling.</p>
                         </div>
                       </div>
                     </div>
@@ -426,7 +514,7 @@ export default function Main() {
 
         </section>
 
-        <section id="portfolio" className="portfolio section">
+        {/* <section id="portfolio" className="portfolio section">
 
           <div className="container section-title" data-aos="fade-up">
             <h2>Portfolio</h2>
@@ -580,9 +668,9 @@ export default function Main() {
 
           </div>
 
-        </section>
+        </section> */}
 
-        <section id="testimonials" className="testimonials section light-background">
+        {/* <section id="testimonials" className="testimonials section light-background">
 
           <div className="container section-title" data-aos="fade-up">
             <h2>Testimonials</h2>
@@ -597,7 +685,7 @@ export default function Main() {
           <div className="container" data-aos="fade-up" data-aos-delay="100">
 
             <div className="testimonials-slider swiper init-swiper">
-              {/* <script type="application/json" className="swiper-config">
+               <script type="application/json" className="swiper-config">
                 {
                   "slidesPerView": 1,
                 "loop": true,
@@ -610,7 +698,7 @@ export default function Main() {
                 "prevEl": ".swiper-button-prev"
               }
             }
-              </script> */}
+              </script> 
 
               <div className="swiper-wrapper">
 
@@ -747,7 +835,7 @@ export default function Main() {
 
           </div>
 
-        </section>
+        </section> */}
 
         <section id="services" className="services section">
 
@@ -758,52 +846,102 @@ export default function Main() {
                 <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" strokeWidth="2"></path>
               </svg>
             </div>
-            <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem</p>
+            <p>Offering a comprehensive range of full-stack development services with expertise in backend, frontend, databases, and API integrations to build scalable and high-performing applications.</p>
           </div>
 
           <div className="container" data-aos="fade-up" data-aos-delay="100">
 
             <div className="row align-items-center">
               <div className="col-lg-4 mb-5 mb-lg-0">
-                <h2 className="fw-bold mb-4 servies-title">Consectetur adipiscing elit sed do eiusmod tempor</h2>
-                <p className="mb-4">Nulla metus metus ullamcorper vel tincidunt sed euismod nibh volutpat velit class aptent taciti sociosqu ad litora.</p>
-                <a href="#" className="btn btn-outline-primary">See all services</a>
+                <h2 className="fw-bold mb-4 servies-title">End-to-End Web Development Solutions</h2>
+                <p className="mb-4">Providing tailored solutions for businesses, from designing user-friendly interfaces to developing powerful backends and secure databases.</p>
+                {/* <Link href="/all-services" className="btn btn-outline-primary">See all services</Link> */}
               </div>
+
               <div className="col-lg-8">
                 <div className="row g-4">
 
                   <div className="col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div className="service-item">
                       <i className="bi bi-activity icon"></i>
-                      <h3><a href="service-details.html">Eget nulla facilisi etiam</a></h3>
-                      <p>Vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet nulla.</p>
+                      <h3><a href="#">Backend Development with PHP & Node.js</a></h3>
+                      <p>Develop secure and high-performing backends with PHP, Node.js, Laravel, AdonisJS, and ExpressJS to meet complex application needs.</p>
                     </div>
                   </div>
 
                   <div className="col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div className="service-item">
                       <i className="bi bi-easel icon"></i>
-                      <h3><a href="service-details.html">Duis aute irure dolor</a></h3>
-                      <p>Auctor neque vitae tempus quam pellentesque nec nam aliquam sem et tortor.</p>
+                      <h3><a href="#">Frontend Development with React & Vue</a></h3>
+                      <p>Craft dynamic and engaging user interfaces using ReactJS and VueJS for an exceptional user experience.</p>
                     </div>
                   </div>
 
                   <div className="col-md-6" data-aos="fade-up" data-aos-delay="400">
                     <div className="service-item">
                       <i className="bi bi-broadcast icon"></i>
-                      <h3><a href="service-details.html">Excepteur sint occaecat</a></h3>
-                      <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.</p>
+                      <h3><a href="#">Database Design & Management</a></h3>
+                      <p>Design scalable, secure, and efficient databases using SQL, MongoDB, PostgreSQL, and Firebase for storing and managing large datasets.</p>
                     </div>
                   </div>
 
                   <div className="col-md-6" data-aos="fade-up" data-aos-delay="500">
                     <div className="service-item">
                       <i className="bi bi-bounding-box-circles icon"></i>
-                      <h3><a href="service-details.html">Tempor incididunt ut labore</a></h3>
-                      <p>Ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor.</p>
+                      <h3><a href="#">API Development & Integration</a></h3>
+                      <p>Create and integrate custom RESTful APIs, third-party APIs (like payment gateways, Google Maps, WhatsApp), and real-time communication with WebSockets.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-12 mt-3">
+                <div className="row g-4">
+                  <div className="col-md-4" data-aos="fade-up" data-aos-delay="600">
+                    <div className="service-item">
+                      <i className="bi bi-laptop icon"></i>
+                      <h3><a href="#">Full-Stack Web Application Development</a></h3>
+                      <p>Develop complete web applications with integrated frontend and backend frameworks, ensuring scalability, responsiveness, and performance.</p>
                     </div>
                   </div>
 
+                  <div className="col-md-4" data-aos="fade-up" data-aos-delay="700">
+                    <div className="service-item">
+                      <i className="bi bi-check-circle icon"></i>
+                      <h3><a href="#">Performance Optimization</a></h3>
+                      <p>Enhance the performance of web applications by optimizing queries, reducing loading times, and improving server-side processes.</p>
+                    </div>
+                  </div>
+
+                  <div className="col-md-4" data-aos="fade-up" data-aos-delay="800">
+                    <div className="service-item">
+                      <i className="bi bi-shield-lock icon"></i>
+                      <h3><a href="#">Security & Authentication</a></h3>
+                      <p>Implement advanced security measures, including authentication systems, encryption, and data protection to ensure your applications are secure.</p>
+                    </div>
+                  </div>
+
+                  <div className="col-md-4" data-aos="fade-up" data-aos-delay="900">
+                    <div className="service-item">
+                      <i className="bi bi-cloud icon"></i>
+                      <h3><a href="#">Cloud Integration & Deployment</a></h3>
+                      <p>Integrate your application with cloud services like AWS, Google Cloud, or Azure for better scalability, storage, and deployment processes.</p>
+                    </div>
+                  </div>
+                  <div className="col-md-4" data-aos="fade-up" data-aos-delay="600">
+                    <div className="service-item">
+                      <i className="bi bi-cloud icon"></i>
+                      <h3><a href="service-details.html">Cloud Application Architecture</a></h3>
+                      <p>Design and implement cloud-based architectures using AWS, Google Cloud, or Microsoft Azure to ensure scalability, reliability, and security of your applications.</p>
+                    </div>
+                  </div>
+
+                  <div className="col-md-4" data-aos="fade-up" data-aos-delay="700">
+                    <div className="service-item">
+                      <i className="bi bi-palette icon"></i>
+                      <h3><a href="service-details.html">Custom Web Design</a></h3>
+                      <p>Craft visually stunning and user-friendly websites tailored to your brand's identity, with responsive design, modern aesthetics, and engaging user interfaces.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -811,6 +949,7 @@ export default function Main() {
           </div>
 
         </section>
+
 
         <section id="faq" className="faq section">
 
@@ -821,70 +960,39 @@ export default function Main() {
                 <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" strokeWidth="2"></path>
               </svg>
             </div>
-            <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem</p>
+            <p>Here are some common questions about my services and skills. If you need further information, feel free to get in touch!</p>
           </div>
+
           <div className="container">
-
             <div className="row justify-content-center">
-
-              <div className="col-lg-10" data-aos="fade-up" data-aos-delay="100">
-
+              <div className="col-lg-10">
                 <div className="faq-container">
+                  {faqData.map((faq, index) => (
+                    <div className="faq-item" key={index}>
+                      <h3 onClick={() => toggleFAQ(index)} className={activeFAQIndex === index ? 'faq-active-e' : ''}>{faq.question}</h3>
 
-                  <div className="faq-item faq-active">
-                    <h3>Non consectetur a erat nam at lectus urna duis?</h3>
-                    <div className="faq-content">
-                      <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
+                      <i
+                        className={`faq-toggle bi ${activeFAQIndex === index ? 'bi-chevron-down' : 'bi-chevron-right'
+                          }`}
+                      ></i>
+                      <AnimatePresence mode="wait">
+                        {activeFAQIndex === index && (
+                          <motion.div
+                            key={index}
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                          >
+                            <p>{faq.answer}</p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <i className="faq-toggle bi bi-chevron-right"></i>
-                  </div>
-
-                  <div className="faq-item">
-                    <h3>Feugiat scelerisque varius morbi enim nunc faucibus?</h3>
-                    <div className="faq-content">
-                      <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
-                    </div>
-                    <i className="faq-toggle bi bi-chevron-right"></i>
-                  </div>
-
-                  <div className="faq-item">
-                    <h3>Dolor sit amet consectetur adipiscing elit pellentesque?</h3>
-                    <div className="faq-content">
-                      <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis</p>
-                    </div>
-                    <i className="faq-toggle bi bi-chevron-right"></i>
-                  </div>
-
-                  <div className="faq-item">
-                    <h3>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</h3>
-                    <div className="faq-content">
-                      <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
-                    </div>
-                    <i className="faq-toggle bi bi-chevron-right"></i>
-                  </div>
-
-                  <div className="faq-item">
-                    <h3>Tempus quam pellentesque nec nam aliquam sem et tortor?</h3>
-                    <div className="faq-content">
-                      <p>Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in</p>
-                    </div>
-                    <i className="faq-toggle bi bi-chevron-right"></i>
-                  </div>
-
-                  <div className="faq-item">
-                    <h3>Perspiciatis quod quo quos nulla quo illum ullam?</h3>
-                    <div className="faq-content">
-                      <p>Enim ea facilis quaerat voluptas quidem et dolorem. Quis et consequatur non sed in suscipit sequi. Distinctio ipsam dolore et.</p>
-                    </div>
-                    <i className="faq-toggle bi bi-chevron-right"></i>
-                  </div>
-
+                  ))}
                 </div>
-
               </div>
-
             </div>
-
           </div>
 
         </section>
@@ -897,66 +1005,67 @@ export default function Main() {
               <div className="col-lg-6">
                 <div className="content" data-aos="fade-up" data-aos-delay="200">
                   <div className="section-category mb-3">Contact</div>
-                  <h2 className="display-5 mb-4">Nemo enim ipsam voluptatem quia voluptas aspernatur</h2>
-                  <p className="lead mb-4">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.</p>
+                  <h2 className="display-5 mb-4">Let's Build Something Together</h2>
+                  <p className="lead mb-4">
+                    Whether you have a project in mind, want to collaborate, or just want to connect — feel free to reach out. I’m always open to new opportunities and ideas.
+                  </p>
 
                   <div className="contact-info mt-5">
                     <div className="info-item d-flex mb-3">
                       <i className="bi bi-envelope-at me-3"></i>
-                      <span>info@example.com</span>
+                      <span>r.rajput.dev.01@gmail.com</span>
                     </div>
 
                     <div className="info-item d-flex mb-3">
                       <i className="bi bi-telephone me-3"></i>
-                      <span>+1 5589 55488 558</span>
+                      <span>+91 8219393501</span>
                     </div>
 
-                    <div className="info-item d-flex mb-4">
-                      <i className="bi bi-geo-alt me-3"></i>
-                      <span>A108 Adam Street, New York, NY 535022</span>
+                    <div className="info-item d-flex mb-3">
+                      <i className="bi bi-person me-3"></i>
+                      <span>Sanjay Kumar, 27 Years</span>
                     </div>
 
-                    <a href="#" className="map-link d-inline-flex align-items-center">
+                    <a
+                      href="https://www.google.com/maps/place/India"
+                      target="_blank"
+                      className="map-link d-inline-flex align-items-center"
+                      rel="noopener noreferrer"
+                    >
                       Open Map
                       <i className="bi bi-arrow-right ms-2"></i>
                     </a>
                   </div>
                 </div>
+
               </div>
 
               <div className="col-lg-6">
                 <div className="contact-form card" data-aos="fade-up" data-aos-delay="300">
                   <div className="card-body p-4 p-lg-5">
 
-                    <form action="forms/contact.php" method="post" className="php-email-form">
-                      <div className="row gy-4">
-
-                        <div className="col-12">
-                          <input type="text" name="name" className="form-control" placeholder="Your Name" required="" />
-                        </div>
-
-                        <div className="col-12 ">
-                          <input type="email" className="form-control" name="email" placeholder="Your Email" required="" />
-                        </div>
-
-                        <div className="col-12">
-                          <input type="text" className="form-control" name="subject" placeholder="Subject" required="" />
-                        </div>
-
-                        <div className="col-12">
-                          <textarea className="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                        </div>
-
-                        <div className="col-12 text-center">
-                          <div className="loading">Loading</div>
-                          <div className="error-message"></div>
-                          <div className="sent-message">Your message has been sent. Thank you!</div>
-
-                          <button type="submit" className="btn btn-submit w-100">Submit Message</button>
-                        </div>
-
-                      </div>
-                    </form>
+                  <form onSubmit={handleSubmit} className="php-email-form">
+      <div className="row gy-4">
+        <div className="col-12">
+          <input type="text" name="name" className="form-control" placeholder="Your Name" required />
+        </div>
+        <div className="col-12">
+          <input type="email" name="email" className="form-control" placeholder="Your Email" required />
+        </div>
+        <div className="col-12">
+          <input type="text" name="subject" className="form-control" placeholder="Subject" required />
+        </div>
+        <div className="col-12">
+          <textarea name="message" className="form-control" rows="6" placeholder="Message"></textarea>
+        </div>
+        <div className="col-12 text-center">
+          {status === 'loading' && <div className="loading">Sending...</div>}
+          {status === 'success' && <div className="sent-message">Message saved! Thank you 😊</div>}
+          {status === 'error' && <div className="error-message">Oops! Something went wrong.</div>}
+          <button type="submit" className="btn btn-submit w-100">Submit Message</button>
+        </div>
+      </div>
+    </form>
 
                   </div>
                 </div>
@@ -974,7 +1083,7 @@ export default function Main() {
 
         <div className="container">
           <div className="copyright text-center ">
-            <p>© <span>Copyright</span> <strong className="px-1 sitename">EasyFolio</strong> <span>All Rights Reserved</span></p>
+            <p>© <span>Copyright</span> <strong className="px-1 sitename">RR</strong> <span>All Rights Reserved</span></p>
           </div>
           <div className="social-links d-flex justify-content-center">
             <a href=""><i className="bi bi-twitter-x"></i></a>
@@ -987,7 +1096,7 @@ export default function Main() {
         <!-- You can delete the links only if you've purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] --> */}
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            {/* Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> */}
           </div>
         </div>
 

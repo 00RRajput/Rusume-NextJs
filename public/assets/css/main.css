@@ -682,7 +682,7 @@ section,
 .section-title p {
   margin: 15px auto 0;
   font-size: 16px;
-  max-width: 700px;
+  max-width: 800px;
   color: color-mix(in srgb, var(--default-color), transparent 25%);
   line-height: 1.8;
 }
@@ -1284,8 +1284,8 @@ section,
 
 @media (max-width: 768px) {
   .portfolio .portfolio-filters li {
-    font-size: 14px;
-    padding: 6px 15px;
+    font-size: 12px;
+        padding: 1px 7px;
   }
 
   .portfolio .portfolio-card .portfolio-content {
@@ -1546,6 +1546,9 @@ section,
 
 .faq .faq-container .faq-item .faq-toggle:hover {
   color: var(--accent-color);
+}
+.faq-active-e {
+color: var(--accent-color)!important;
 }
 
 .faq .faq-container .faq-active {
