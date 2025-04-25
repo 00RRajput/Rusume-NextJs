@@ -10,6 +10,13 @@ import faqData from '@/data/faq'
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { IoLogoWhatsapp } from "react-icons/io";
+import { FaFacebookF } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaLinkedinIn } from "react-icons/fa6";
+import { FaYoutube } from "react-icons/fa";
+import { IoMdCall } from "react-icons/io";
+import { SiFreelancer } from "react-icons/si";
 
 export default function Main() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -36,19 +43,20 @@ export default function Main() {
         body: JSON.stringify(formData),
       });
 
-    console.log(res);
-    return;
-      if (res.ok) {
-        setStatus('success');
-        e.target.reset();
-      } else {
-        setStatus('error');
-      }
+        if (res.ok) {
+          setStatus('success');
+          e.target.reset();
+        } else {
+          setStatus('error');
+        }
+        setTimeout(() => {
+          setStatus('');
+      }, 2000);
     } catch (err) {
       setStatus('error');
     }
   };
- 
+
   const toggleFAQ = (index) => {
 
     if (activeFAQIndex === index) {
@@ -1044,28 +1052,28 @@ export default function Main() {
                 <div className="contact-form card" data-aos="fade-up" data-aos-delay="300">
                   <div className="card-body p-4 p-lg-5">
 
-                  <form onSubmit={handleSubmit} className="php-email-form">
-      <div className="row gy-4">
-        <div className="col-12">
-          <input type="text" name="name" className="form-control" placeholder="Your Name" required />
-        </div>
-        <div className="col-12">
-          <input type="email" name="email" className="form-control" placeholder="Your Email" required />
-        </div>
-        <div className="col-12">
-          <input type="text" name="subject" className="form-control" placeholder="Subject" required />
-        </div>
-        <div className="col-12">
-          <textarea name="message" className="form-control" rows="6" placeholder="Message"></textarea>
-        </div>
-        <div className="col-12 text-center">
-          {status === 'loading' && <div className="loading">Sending...</div>}
-          {status === 'success' && <div className="sent-message">Message saved! Thank you 😊</div>}
-          {status === 'error' && <div className="error-message">Oops! Something went wrong.</div>}
-          <button type="submit" className="btn btn-submit w-100">Submit Message</button>
-        </div>
-      </div>
-    </form>
+                    <form onSubmit={handleSubmit} className="php-email-form">
+                      <div className="row gy-4">
+                        <div className="col-12">
+                          <input type="text" name="name" className="form-control" placeholder="Your Name" required />
+                        </div>
+                        <div className="col-12">
+                          <input type="email" name="email" className="form-control" placeholder="Your Email" required />
+                        </div>
+                        <div className="col-12">
+                          <input type="text" name="subject" className="form-control" placeholder="Subject" required />
+                        </div>
+                        <div className="col-12">
+                          <textarea name="message" className="form-control" rows="6" placeholder="Message"></textarea>
+                        </div>
+                        <div className="col-12 text-center">
+                          {status === 'loading' && <div className="loading">Sending...</div>}
+                          {status === 'success' && <div className="sent-message">Message sent! Thank you 😊</div>}
+                          {status === 'error' && <div className="error-message">Oops! Something went wrong.</div>}
+                          <button type="submit" className="btn btn-submit w-100">Submit Message</button>
+                        </div>
+                      </div>
+                    </form>
 
                   </div>
                 </div>
@@ -1086,10 +1094,45 @@ export default function Main() {
             <p>© <span>Copyright</span> <strong className="px-1 sitename">RR</strong> <span>All Rights Reserved</span></p>
           </div>
           <div className="social-links d-flex justify-content-center">
-            <a href=""><i className="bi bi-twitter-x"></i></a>
-            <a href=""><i className="bi bi-facebook"></i></a>
-            <a href=""><i className="bi bi-instagram"></i></a>
-            <a href=""><i className="bi bi-linkedin"></i></a>
+            <Link
+              href="https://wa.me/918219393501?text=Hi%20there%2C%20I%20found%20you%20on%20your%20website!"
+              target="_blank"
+              className="text-green-400 hover:text-green-600 transform hover:scale-110 transition duration-200"
+            >
+              <IoLogoWhatsapp />
+            </Link>
+            <Link
+              href="tel:+918219393501"
+              className="text-blue-400 hover:text-blue-600 transform hover:scale-110 transition duration-200"
+            >
+              <IoMdCall />
+            </Link>
+            {/* <Link
+              href="#"
+              className="text-pink-400 hover:text-pink-600 transform hover:scale-110 transition duration-200"
+            >
+              <FaInstagram />
+            </Link>
+            <Link
+              href="#"
+              className="text-blue-500 hover:text-blue-700 transform hover:scale-110 transition duration-200"
+            >
+              <FaLinkedinIn />
+            </Link> */}
+            <Link
+              href="#"
+              onClick={() => alert('Yon`t to login see this option!')}
+              className="text-red-400 hover:text-red-600 transform hover:scale-110 transition duration-200"
+            >
+              <FaYoutube />
+            </Link>
+            <Link
+              href="#"
+              onClick={() => alert('Yon`t to login see this option!')}
+              className="text-blue-400 hover:text-blue-600 transform hover:scale-110 transition duration-200"
+            >
+              <SiFreelancer />
+            </Link>
           </div>
           <div className="credits">
             {/* <!-- All the links in the footer should remain intact. -->

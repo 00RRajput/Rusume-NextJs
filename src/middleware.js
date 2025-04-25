@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const allowedOrigins = ["http://localhost:3000/"];
+const allowedOrigins = ["http://localhost:3000"];
 
 const corsOptions = {
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -8,8 +8,8 @@ const corsOptions = {
 };
 
 export async function middleware(request) {
-  const origin = request.headers.get("origin") || "http://localhost:3000/";
-// console.log('====', origin)
+  const origin = request.headers.get("origin") || "http://localhost:3000";
+
   const isAllowedOrigin = allowedOrigins.includes(origin);
 
   if (!isAllowedOrigin) {

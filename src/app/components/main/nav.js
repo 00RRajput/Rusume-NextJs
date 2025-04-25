@@ -6,6 +6,8 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa";
+import { IoMdCall } from "react-icons/io";
+import { SiFreelancer } from "react-icons/si";
 
 export default function MainNav() {
 
@@ -23,10 +25,10 @@ export default function MainNav() {
               <li><Link href="#hero" className="active">Home</Link></li>
               <li><Link href="#about">About </Link></li>
               <li><Link href="#resume">Resume</Link></li>
-              <li><Link href="#portfolio">Portfolio</Link></li>
+              {/* <li><Link href="#portfolio">Portfolio</Link></li> */}
               <li><Link href="#services">Services</Link></li>
 
-              <li className="dropdown"><Link href="#"><span>Dropdown</span> <GoChevronDown /></Link>
+              {/* <li className="dropdown"><Link href="#"><span>Dropdown</span> <GoChevronDown /></Link>
                 <ul>
                   <li><Link href="#">Dropdown 1</Link></li>
                   <li className="dropdown"><Link href="#"><span>Deep Dropdown</span> <GoChevronDown /></Link>
@@ -42,7 +44,7 @@ export default function MainNav() {
                   <li><Link href="#">Dropdown 3</Link></li>
                   <li><Link href="#">Dropdown 4</Link></li>
                 </ul>
-              </li>
+              </li> */}
               <li><Link href="#contact">Contact</Link></li>
             </ul>
             <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -50,18 +52,19 @@ export default function MainNav() {
 
           <div className="header-social-links">
             <Link
-              href="#"
+              href="https://wa.me/918219393501?text=Hi%20there%2C%20I%20found%20you%20on%20your%20website!"
+              target="_blank"
               className="text-green-400 hover:text-green-600 transform hover:scale-110 transition duration-200"
             >
               <IoLogoWhatsapp />
             </Link>
             <Link
-              href="#"
+              href="tel:+918219393501"
               className="text-blue-400 hover:text-blue-600 transform hover:scale-110 transition duration-200"
             >
-              <FaFacebookF />
+              <IoMdCall />
             </Link>
-            <Link
+            {/* <Link
               href="#"
               className="text-pink-400 hover:text-pink-600 transform hover:scale-110 transition duration-200"
             >
@@ -72,12 +75,20 @@ export default function MainNav() {
               className="text-blue-500 hover:text-blue-700 transform hover:scale-110 transition duration-200"
             >
               <FaLinkedinIn />
-            </Link>
+            </Link> */}
             <Link
               href="#"
+              onClick={()=> alert('Yon`t to login see this option!')}
               className="text-red-400 hover:text-red-600 transform hover:scale-110 transition duration-200"
             >
               <FaYoutube />
+            </Link>
+            <Link
+              href="#"
+              onClick={()=> alert('Yon`t to login see this option!')}
+              className="text-blue-400 hover:text-blue-600 transform hover:scale-110 transition duration-200"
+            >
+              <SiFreelancer />
             </Link>
           </div>
 
