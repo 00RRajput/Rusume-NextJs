@@ -15,7 +15,7 @@ export default function MainNav() {
       <header id="header" className="header d-flex align-items-center sticky-top">
         <div className="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-          <Link href="index.html" className="logo d-flex align-items-center me-auto me-xl-0">
+          <Link href="/" className="logo d-flex align-items-center me-auto me-xl-0">
             <Image src="/stat-img/transprint-logo-crop.png" width={150} height={100} className="img-fluid ml-3" alt="" />
             {/* <h1 className="sitename">EasyFolio</h1> */}
           </Link>
