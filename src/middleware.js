@@ -12,18 +12,19 @@ export async function middleware(request) {
 
   const isAllowedOrigin = allowedOrigins.includes(origin);
 
-  if (!isAllowedOrigin) {
-    const preflightHeaders = {
-      ...{ "Access-Control-Allow-Origin": origin },
-      ...corsOptions,
-    };
+  if (!origin.includes('.css')) {
+    if (!isAllowedOrigin) {
+      const preflightHeaders = {
+        ...{ "Access-Control-Allow-Origin": origin },
+        ...corsOptions,
+      };
 
-    return NextResponse.json(
-      { message: "Origin Not Allowed😯!", status: 403 },
-      { headers: preflightHeaders }
-    );
+      return NextResponse.json(
+        { message: "Origin Not Allowed😯!", status: 403 },
+        { headers: preflightHeaders }
+      );
+    }
   }
-
   const allowedMethods = ["GET", "POST", "PUT", "DELETE", "OPTIONS"];
   const method = request.method;
 
