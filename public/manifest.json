@@ -1,10 +1,10 @@
 {
-    "id": "7",
+    "id": "8",
     "name": "R Rajput",
     "short_name": "RR",
     "icons": [
       {
-        "src": "/ninja.jpeg",
+        "src": "/stat-img/logo.png",
         "sizes": "192x192",
         "type": "image/png",
         "purpose": "any maskable"
