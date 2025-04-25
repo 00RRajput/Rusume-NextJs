@@ -129,7 +129,7 @@ export default function Main() {
               </svg>
             </div>
             <p>
-              I'm a passionate Software Engineer skilled in building scalable web apps and seamless user experiences. I work with Laravel, Next.js, and React to craft clean, functional, and high-performance solutions.
+              I&apos;m a passionate Software Engineer skilled in building scalable web apps and seamless user experiences. I work with Laravel, Next.js, and React to craft clean, functional, and high-performance solutions.
             </p>
           </div>
 
@@ -947,7 +947,7 @@ export default function Main() {
                     <div className="service-item">
                       <i className="bi bi-palette icon"></i>
                       <h3><a href="service-details.html">Custom Web Design</a></h3>
-                      <p>Craft visually stunning and user-friendly websites tailored to your brand's identity, with responsive design, modern aesthetics, and engaging user interfaces.</p>
+                      <p>Craft visually stunning and user-friendly websites tailored to your brand&apos;s identity, with responsive design, modern aesthetics, and engaging user interfaces.</p>
                     </div>
                   </div>
                 </div>
@@ -1013,7 +1013,7 @@ export default function Main() {
               <div className="col-lg-6">
                 <div className="content" data-aos="fade-up" data-aos-delay="200">
                   <div className="section-category mb-3">Contact</div>
-                  <h2 className="display-5 mb-4">Let's Build Something Together</h2>
+                  <h2 className="display-5 mb-4">Let&apos;s Build Something Together</h2>
                   <p className="lead mb-4">
                     Whether you have a project in mind, want to collaborate, or just want to connect — feel free to reach out. I’m always open to new opportunities and ideas.
                   </p>
