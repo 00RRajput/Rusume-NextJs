@@ -1,3 +1,22 @@
+// src/middleware.js (or /middleware.js if in root)
+
+import { NextResponse } from 'next/server';
+
+export function middleware(request) {
+  // Example logic: Redirect if not logged in
+  const isLoggedIn = true; // replace with actual logic
+  if (!isLoggedIn) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  return NextResponse.next();
+}
+
+// Optional config
+export const config = {
+  matcher: ['/protected/:path*'],
+};
+
 // import { NextResponse } from "next/server";
 
 // const allowedOrigins = ["http://localhost:3000"];
