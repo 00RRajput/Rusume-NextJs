@@ -12,7 +12,7 @@ export async function middleware(request) {
 
   const isAllowedOrigin = allowedOrigins.includes(origin);
 
-  if (!origin.includes('.css')) {
+  if (!origin.includes('.css') && !origin.includes('assets')) {
     if (!isAllowedOrigin) {
       const preflightHeaders = {
         ...{ "Access-Control-Allow-Origin": origin },
