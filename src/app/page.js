@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import "./../../public/assets/css/main.css";
 import MainNav from "./components/main/nav";
+import faqData from '../data/faq.json';
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
