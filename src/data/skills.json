@@ -27,6 +27,11 @@
           "prsentage": "75%"
         },
         {
+          "Skill": "NextJS",
+          "des": "Enables backend logic with file-based API routes and TypeScript support.",
+          "prsentage": "60%"
+        },
+        {
           "Skill": "NestJS",
           "des": "Progressive Node.js framework for scalable applications.",
           "prsentage": "60%"
@@ -93,11 +98,6 @@
           "Skill": "Firebase",
           "des": "Backend-as-a-Service with realtime database and auth.",
           "prsentage": "70%"
-        },
-        {
-          "Skill": "PostgreSQL",
-          "des": "Advanced open-source relational database.",
-          "prsentage": "65%"
         }
       ]
     },
@@ -171,6 +171,11 @@
           "Skill": "Docker",
           "des": "Containerization platform for app deployment.",
           "prsentage": "60%"
+        },
+        {
+          "Skill": "TypeScript",
+          "des": "Strongly typed superset of JavaScript for scalable development.",
+          "prsentage": "75%"
         }
       ]
     }

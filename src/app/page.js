@@ -5,9 +5,8 @@ import Image from "next/image";
 
 import "./../../public/assets/css/main.css";
 import MainNav from "./components/main/nav";
-import skills from '@/data/skills'
 import faqData from '@/data/faq'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { IoLogoWhatsapp } from "react-icons/io";
@@ -17,11 +16,19 @@ import { FaLinkedinIn } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa";
 import { IoMdCall } from "react-icons/io";
 import { SiFreelancer } from "react-icons/si";
+import About from "./components/about";
+import { axiosApi } from '@/app/utils/axios-instance';
+import Resume from "./components/resume";
+import Skills from "./components/skills";
 
 export default function Main() {
-  const [activeIndex, setActiveIndex] = useState(0);
   const [activeFAQIndex, setActiveFAQIndex] = useState(null);
   const [status, setStatus] = useState('');
+  const [pdfDownloading, setPdfDownloading] = useState(false);
+  const [pwaDownloading, setPWADownloading] = useState(false);
+  const [pwaInstalled, setPWAInstalled] = useState(false);
+  const [installedApps, setInstalledApps] = useState([]);
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,6 +72,148 @@ export default function Main() {
       setActiveFAQIndex(index);
     }
   };
+
+  const onDownload = async () => {
+    try {
+      setPdfDownloading(true);
+      const res = await axiosApi.post(
+        '/api/generate-pdf',
+        { },
+        { responseType: "arraybuffer" } 
+      );
+      console.log('download res ', res);
+   
+      if (res.status === 200) {
+        // toast({ title: "PDF generated successfully", description: "Starting download..." });
+  
+        const blob = new Blob([res.data], { type: "application/pdf" });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `resume.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+  
+        // toast({ title: "Download started", description: "Your PDF is downloading." });
+      } else {
+        console.log('FAil')
+        // toast({ title: "Error", description: "Failed to generate PDF.", variant: "destructive" });
+      }
+      setPdfDownloading(false);
+    } catch (error) {
+      console.error(error);
+      // toast({
+      //   title: "Something went wrong",
+      //   description: error.response?.data || error.message,
+      //   variant: "destructive",
+      // });
+    }
+  };
+const checkApps = async () => {
+  const ddf = await navigator.getInstalledRelatedApps
+  console.log('}}}}}}}',ddf)
+  if (navigator.getInstalledRelatedApps) {
+    navigator.getInstalledRelatedApps().then((apps) => {
+      console.log(apps)
+      if (apps.length > 0) {
+        setPWAInstalled(true);
+        setInstalledApps(apps);
+      }
+    });
+  }
+}
+  // useEffect(() => {
+  //   // Check if PWA is already installed
+  //   const isInStandaloneMode = () =>
+  //     window.matchMedia('(display: standalone)').matches ||
+  //     window.navigator.standalone === true;
+  // console.log('isInStandaloneMode', isInStandaloneMode())
+  //   if (isInStandaloneMode()) {
+  //     setPWAInstalled(true);
+  //   }
+
+  //   // Listen for beforeinstallprompt event
+  //   const handleBeforeInstallPrompt = (event) => {
+  //     event.preventDefault();
+  //     setDeferredPrompt(event);
+  //   };
+
+  //   window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+  //   // Check installed related apps (works on mobile browsers)
+  //   checkApps()
+    
+
+  //   return () => {
+  //     window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    // Check if the service worker is active (indicates a PWA)
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.ready.then((registration) => {
+        if (registration.active) {
+          console.log('Service Worker is active');
+          setPWAInstalled(true); // PWA is "installed" if service worker is active
+        } else {
+          console.log('Service Worker is not active');
+        }
+      });
+    }
+
+    // Listen for beforeinstallprompt event to handle PWA installation
+    const handleBeforeInstallPrompt = (event) => {
+      console.log("beforeinstallprompt event triggered");
+      event.preventDefault();
+      setDeferredPrompt(event); // Save the event to trigger the install prompt later
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+
+  const handleInstallPWA = () => {
+    console.log('deferredPrompt', deferredPrompt)
+    if (deferredPrompt && typeof deferredPrompt.prompt === 'function') {
+      console.log('Prompting install...');
+      setPWADownloading(true);
+  
+      deferredPrompt.prompt();
+  
+      deferredPrompt.userChoice.then((choiceResult) => {
+        setPWADownloading(false);
+        if (choiceResult.outcome === 'accepted') {
+          console.log('✅ User accepted the install prompt');
+          setPWAInstalled(true);
+        } else {
+          console.log('❌ User dismissed the install prompt');
+          setDeferredPrompt(null);
+        }
+      });
+    } else {
+      console.warn('Install prompt is not available.');
+    }
+  };
+
+  const handleOpenApp = async () => {
+    console.log(await navigator.serviceWorker.ready)
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      console.log('App is running as a PWA');
+      // You could navigate or trigger something within the app
+    } else {
+      // Optional: fallback to open via manifest-defined URL
+      window.open(window.location.origin, "_blank");
+    }
+  };
+
+  
+
   return (
     <>
       <MainNav />
@@ -78,7 +227,26 @@ export default function Main() {
               <div className="col-lg-6" data-aos="fade-up" data-aos-delay="200">
                 <h2>Crafting Digital Experiences with Passion</h2>
                 <p className="lead">Transforming ideas into elegant solutions through creative design and innovative development</p>
-                <div className="cta-buttons" data-aos="fade-up" data-aos-delay="300">
+                <div className="cta-buttons flex-wrap" data-aos="fade-up" data-aos-delay="300">
+               
+                {pdfDownloading ? <button className="btn btn-primary" type="button" disabled>
+                  <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                  Downloading...
+                </button> :
+                  <button className="btn btn-primary" onClick={() => onDownload()}>Download Resume</button>}
+                  {pwaInstalled ? (
+                    <button className="btn btn-primary" onClick={handleOpenApp}>Open App</button>
+                  ) : pwaDownloading ? (
+                    <button className="btn btn-primary" type="button" disabled>
+                      <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                      Downloading...
+                    </button>
+                  ) : deferredPrompt ? (
+                    <button className="btn btn-primary" onClick={handleInstallPWA}>Download App</button>
+                  ) : (
+                    <button className="btn btn-outline" disabled>App Not Available</button>
+                  )}
+                  
                   <a href="#portfolio" className="btn btn-primary">View My Work</a>
                   <a href="#contact" className="btn btn-outline">Let&apos;s Connect</a>
                 </div>
@@ -146,81 +314,8 @@ export default function Main() {
                 </div>
               </div>
 
-              <div className="col-lg-6" data-aos="fade-left" data-aos-delay="300">
-                <div className="about-content">
-                  <span className="subtitle">About Me</span>
-
-                  {/* <h2>UI/UX Designer &amp; Web Developer</h2> */}
-                  <h2>Full Stack Developer</h2>
-
-                  <p className="lead mb-4">
-                    I’m a Full Stack Developer with a focus on building robust, scalable web applications and delivering smooth, intuitive user experiences.
-                  </p>
-
-                  <p className="mb-4">
-                    From frontend interfaces to backend systems, I enjoy turning ideas into reliable, efficient, and elegant digital products.
-                  </p>
-
-                  <div className="personal-info">
-                    <div className="row g-4">
-                      <div className="col-6">
-                        <div className="info-item">
-                          <span className="label">Name</span>
-                          <span className="value">Sanjay Kumar</span>
-                        </div>
-                      </div>
-
-                      <div className="col-6">
-                        <div className="info-item">
-                          <span className="label">Phone</span>
-                          <span className="value">+91 8219393501</span>
-                        </div>
-                      </div>
-
-                      <div className="col-6">
-                        <div className="info-item">
-                          <span className="label">Age</span>
-                          <span className="value">27 Years</span>
-                        </div>
-                      </div>
-
-                      <div className="col-6">
-                        <div className="info-item">
-                          <span className="label">Email</span>
-                          <span className="value">r.rajput.dev.01@gmail.com</span>
-                        </div>
-                      </div>
-
-                      {/* <div className="col-6">
-                        <div className="info-item">
-                          <span className="label">Occupation</span>
-                          <span className="value">Lorem Engineer</span>
-                        </div>
-                      </div> */}
-
-                      <div className="col-6">
-                        <div className="info-item">
-                          <span className="label">Nationality</span>
-                          <span className="value">Indian</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="signature mt-4">
-                    <div className="signature-image">
-                      <Image width={100}
-                        height={100}
-                        // src="/assets/img/misc/signature-1.webp"
-                        src="/stat-img/signature.png"
-                        alt="" className="img-fluid" />
-                    </div>
-                    <div className="signature-info">
-                      <h4>Sanjay</h4>
-                      <p>Software Engineer</p>
-                    </div>
-                  </div>
-                </div>
+              <div className="col-lg-6" data-aos="fade-left" data-aos-delay="300" >
+                <About/>
               </div>
             </div>
 
@@ -229,134 +324,7 @@ export default function Main() {
         </section>
 
         <section id="skills" className="skills section portfolio">
-          <div className="container section-title" data-aos="fade-up">
-            <h2>Skills</h2>
-            <div className="title-shape">
-              <svg viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" strokeWidth="2"></path>
-              </svg>
-            </div>
-            <p>
-              I specialize in both frontend and backend development, with hands-on experience in modern frameworks, databases, and tools that bring powerful digital solutions to life.
-            </p>
-          </div>
-
-          {/* <div className="container mx-auto px-4" data-aos="fade-up" data-aos-delay="100">
-          {skills.map((category, i) => {
-            const [title, items] = Object.entries(category)[0];
-            return (
-              <div className="mt-6" key={i}>
-                <h2 className="text-xl font-semibold mb-3">{title}</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 skills-animation">
-                  {items.map((item, j) => (
-                    <div
-                      key={j}
-                      className="p-3 bg-white border rounded-xl shadow-sm text-sm"
-                      data-aos="fade-up"
-                      data-aos-delay="100"
-                    >
-                      <h5 className="font-medium text-base mb-1">{item.Skill}</h5>
-                      <p className="text-gray-500 text-xs mb-2">{item.des}</p>
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="text-gray-400 text-xs">Proficiency</span>
-                        <strong className="text-gray-800 text-sm">{item.prsentage}</strong>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded h-1.5">
-                        <div
-                          className="bg-green-500 h-1.5 rounded"
-                          style={{ width: item.prsentage }}
-                        ></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div> */}
-
-          <div className="container mx-auto px-4 py-6">
-            {/* Tabs */}
-            <div className="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-
-              <div className="portfolio-filters-container" data-aos="fade-up" data-aos-delay="200">
-                <div className="section light-background p-2">
-                  <ul className="portfolio-filters isotope-filters overflow-x-auto">
-
-                    {skills.map((category, i) => {
-                      const [title] = Object.entries(category)[0];
-                      return (
-                        <li
-                          key={i}
-                          onClick={() => setActiveIndex(i)}
-                          className={activeIndex == i ? 'filter-active' : ''}
-                        >{title}</li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              </div>
-            </div>
-            {/* <div className="flex space-x-4 overflow-x-auto border-b mb-6">
-            {skills.map((category, i) => {
-              const [title] = Object.entries(category)[0];
-              return (
-                <button
-                  key={i}
-                  onClick={() => setActiveIndex(i)}
-                  className={`pb-2 font-mdium whitespace-nowrap ${
-                    activeIndex === i
-                      ? 'border-b-2 border-blue-600 text-blue-600'
-                      : 'text-gray-500 hover:text-blue-500'
-                  }`}
-                >
-                  {title}
-                </button>
-              );
-            })}
-          </div> */}
-
-            {/* Animated Content */}
-            <div className="relative min-h-[200px]">
-              <AnimatePresence mode="wait">
-                <div
-                  key={activeIndex}
-                  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-                >
-                  {Object.entries(skills[activeIndex])[0][1].map((item, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, scale: 0.5, rotateY: 90 }}
-                      animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                      exit={{ opacity: 0, scale: 0.5, rotateY: -90 }}
-                      transition={{ duration: 0.6, ease: 'easeOut' }}
-                      style={{ transformStyle: 'preserve-3d' }}
-                    >
-                      <div
-                        className="p-3 bg-white border rounded-xl shadow-sm text-sm"
-                        data-aos="fade-up"
-                        data-aos-delay="100"
-                      >
-                        <h5 className="font-medium text-base mb-1">{item.Skill}</h5>
-                        <p className="text-gray-500 text-xs mb-2">{item.des}</p>
-                        <div className="flex justify-between items-center mb-1">
-                          <span className="text-gray-400 text-xs">Proficiency</span>
-                          <strong className="text-gray-800 text-sm">{item.prsentage}</strong>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded h-1.5">
-                          <div
-                            className="bg-green-500 h-1.5 rounded"
-                            style={{ width: item.prsentage }}
-                          ></div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </AnimatePresence>
-            </div>
-          </div>
-
+         <Skills/>
 
         </section>
 
@@ -376,147 +344,7 @@ export default function Main() {
 
           <div className="container" data-aos="fade-up" data-aos-delay="100">
 
-            <div className="row">
-              <div className="col-12">
-                <div className="resume-wrapper">
-                  <div className="resume-block" data-aos="fade-up">
-                    <h2>Work Experience</h2>
-                    <p className="lead">Skilled in full-stack development, agile collaboration, and delivering scalable, high-quality software with a focus on performance and user experience.</p>
-
-                    <div className="timeline">
-                      <div className="timeline-item" data-aos="fade-up" data-aos-delay="200">
-                        <div className="timeline-left">
-                          <h4 className="company">Summerhill Technologies Pvt Ltd. (Shimla)</h4>
-                          <span className="period">Oct,2021 - Present</span>
-                        </div>
-                        <div className="timeline-dot"></div>
-                        <div className="timeline-right">
-                          <h3 className="position">Software Developer</h3>
-                          <p className="description">Successfully led end-to-end development of scalable web applications, managing both team collaboration and client communication. Oversaw feature delivery, performance optimization, and third-party integrations within agile sprints.</p>
-                          <ul className="mt-2">
-                            <li>
-                              <h3 className="position">Project: ULMS (Unit Load Management System) –</h3> A system to manage and track reusable unit load boxes through cycle-wise dispatch.
-                            </li>
-                            <li>
-                              <ul className="list-disc ps-4 mt-2">
-                                <li>Built real-time operations and socket-based live tracking & notifications.</li>
-                                <li>Optimized SQL queries for performance and operational accuracy.</li>
-                                <li>Managed complete dispatch workflow including supplier and OEM integration.</li>
-                                <li>Integrated email and e-way billing services for automated communication.</li>
-                                <li><strong style={{ color: '#e87532' }}>Tech Stack:</strong> Laravel, PHP, SQL, phpMyAdmin, jQuery.</li>
-                              </ul>
-                            </li>
-                            <li>
-                              <h3 className="position">Project: Dtalk –</h3> An internal task management and appraisal system for a logistics company.
-                            </li>
-                            <li>
-                              <ul className="list-disc ps-4 mt-2">
-                                <li>Managed employee daily tasks with manager-mapped evaluation.</li>
-                                <li>Built quarterly performance tracking and scoring workflows.</li>
-                                <li>Calculated annual scores to support structured employee appraisals.</li>
-                                <li>Streamlined performance review cycles across departments.</li>
-                                <li><strong style={{ color: '#e87532' }}>Tech Stack:</strong> Laravel, PHP, SQL, phpMyAdmin, JavaScript</li>
-                              </ul>
-                            </li>
-                            <li>
-                              <h3 className="position">Project: YMS - </h3> Yard Management System for handling vehicle placement, service scheduling, and real-time yard operations.
-                            </li>
-                            <li>
-                              <ul className="list-disc ps-4 mt-2">
-                                <li>Managed vehicle entry, placement, and service mapping within the yard.</li>
-                                <li>Utilized Google Maps API for precise yard location tracking and service zones.</li>
-                                <li>Implemented real-time notifications and system updates using WebSockets.</li>
-                                <li>Covered various yard operations from check-in to service dispatch.</li>
-                                <li><strong style={{ color: '#e87532' }}>Tech Stack:</strong> React (Frontend), Node.js (Backend), MongoDB (Database).</li>
-                              </ul>
-                            </li>
-                            <li>
-                              <h3 className="position">Project: AMT – </h3> Asset Management Tool for logistics company to streamline asset assignment and inventory tracking.
-                            </li>
-                            <li>
-                              <ul className="list-disc ps-4 mt-2">
-                                <li>Mapped company assets (hardware/software) to individual employees.</li>
-                                <li>Handled asset requests, approvals, and assignment workflows efficiently.</li>
-                                <li>Built real-time inventory tracking and status updates.</li>
-                                <li>Improved asset lifecycle visibility from request to retirement.</li>
-                                <li><strong style={{ color: '#e87532' }}>Tech Stack:</strong> Next.js (Frontend & Backend), MongoDB (Database).</li>
-                              </ul>
-                            </li>
-                            <li>
-                              <h3 className="position">Project: BAton Tea – </h3>
-                              This is an e-commerce website where we implemented product purchase and checkout features, payment integration, messaging, and inventory management. It was built with a custom UI design.
-                            </li>
-                            <li>
-                              <ul className="list-disc ps-4 mt-2">
-                                <li>Implemented product browsing, add-to-cart, and secure checkout functionality.</li>
-                                <li>Integrated an online payment gateway for seamless transactions.</li>
-                                <li>Managed real-time stock and inventory tracking.</li>
-                                <li>Designed and developed a responsive custom UI using Laravel Blade templates and Bootstrap.</li>
-                                <li>
-                                  <strong style={{ color: '#e87532' }}>Tech Stack:</strong> Laravel (Backend), Bootstrap (UI), SQL (Database).
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                          <p></p>
-                        </div>
-                      </div>
-
-                      <div className="timeline-item" data-aos="fade-up" data-aos-delay="300">
-                        <div className="timeline-left">
-                          <h4 className="company">Eduuis Techo Solution Pvt. Ltd</h4>
-                          <span className="period">July 2021 - Oct 2021</span>
-                        </div>
-                        <div className="timeline-dot"></div>
-                        <div className="timeline-right">
-                          <h3 className="position">PHP Developer Executive (Internship)</h3>
-                          <p className="description">
-                            Completed internship focused on building foundational skills in PHP, JavaScript, and Laravel while developing simple web-based applications and learning industry standards.
-                          </p>
-                          <ul>
-                            <li>Learned core PHP and JavaScript for basic web functionality.</li>
-                            <li>Started working with Laravel framework for structured application development.</li>
-                            <li>Collaborated with senior developers to understand real-world development practices.</li>
-                          </ul>
-                          <p></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="resume-block" data-aos="fade-up" data-aos-delay="100">
-                    <h2>My Education</h2>
-                    <p className="lead">I have an education in commerce and computer applications, with skills in business and IT..</p>
-
-                    <div className="timeline">
-                      <div className="timeline-item" data-aos="fade-up" data-aos-delay="200">
-                        <div className="timeline-left">
-                          <h4 className="company">Senior Secondary (+2) in Commerce</h4>
-                          <span className="period">Govt. Senior Secondary School » 2014-2015</span>
-                        </div>
-                        <div className="timeline-dot"></div>
-                        <div className="timeline-right">
-                          <h3 className="position">Commerce Stream (Accountancy, Business Studies, Economics)</h3>
-                          <p className="description">Completed studies in the commerce stream with a focus on accountancy, business studies, and economics. Gained practical knowledge in financial management, business concepts.</p>
-                        </div>
-                      </div>
-
-                      <div className="timeline-item" data-aos="fade-up" data-aos-delay="300">
-                        <div className="timeline-left">
-                          <h4 className="company">Advanced Diploma in Computer Applications</h4>
-                          <span className="period">Vedanta Foundation » Dec 2015</span>
-                        </div>
-                        <div className="timeline-dot"></div>
-                        <div className="timeline-right">
-                          <h3 className="position">Computer Applications & IT Skills</h3>
-                          <p className="description">Acquired essential skills in computer applications, including proficiency in MS Office, web development basics, and IT management. Developed a strong foundation in computer programming and data handling.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Resume/>
 
           </div>
 
