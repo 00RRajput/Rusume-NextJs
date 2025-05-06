@@ -5,7 +5,6 @@ import Image from "next/image";
 
 import "./../../public/assets/css/main.css";
 import MainNav from "./components/main/nav";
-import faqData from '@/data/faq'
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -17,7 +16,7 @@ import { FaYoutube } from "react-icons/fa";
 import { IoMdCall } from "react-icons/io";
 import { SiFreelancer } from "react-icons/si";
 import About from "./components/about";
-import { axiosApi } from '@/app/utils/axios-instance';
+import { axiosApi } from '../app/utils/axios-instance';
 import Resume from "./components/resume";
 import Skills from "./components/skills";
 

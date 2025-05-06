@@ -4,9 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { usePDF } from 'react-to-pdf';
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
-import SkillCard from "../components/skill-card";
-import ExperienceCard from "../components/exp-card";
-import EducationCard from "../components/edu-card";
 
 export default function PDF() {
   const printRef = useRef();

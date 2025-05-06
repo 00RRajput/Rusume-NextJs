@@ -1,4 +1,5 @@
-import skills from '@/data/skills';
+
+import skills from '../../data/skills.json';
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from 'react';
 

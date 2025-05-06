@@ -1,4 +1,5 @@
-import skills from '@/data/skills';
+
+import skills from '../../data/skills.json';
 export default function SkillsForPdf() {
 
     return (

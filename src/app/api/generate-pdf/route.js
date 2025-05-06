@@ -1,5 +1,5 @@
-import { generatePdf } from "@/lib/generatePdf";
-import { renderPdf } from "@/lib/renderPdf";
+import { generatePdf } from "../../../lib/generatePdf";
+import { renderPdf } from "../../../lib/renderPdf";
 
 export const POST = async (req, { params }) => {
   try {

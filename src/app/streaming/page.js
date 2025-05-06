@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import {fetchData} from '../utils/axios-instance';
 import {WatchModeApi} from '../utils/wm-instance';
 
 export default function Streaming() {
